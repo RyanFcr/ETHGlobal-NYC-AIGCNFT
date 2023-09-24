@@ -177,7 +177,7 @@ export default function Creat() {
           className=" hidden sm:block ml-auto m-3 sm:ml-3 sm:mr-8 sm:px-8 font-regular cursor-pointer"
           onClick={() => {}}
         >
-          R0-0022
+          ETH-NYC
         </div>
         <div></div>
       </div>
