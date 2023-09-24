@@ -1,9 +1,16 @@
 import { useState } from "react";
 import styles from "./index.module.css";
-const { baycImage } = require("../../assets/pages/home/111.png");
-const { azukiImage } = require("../../assets/pages/home/2.png");
-const { moonBirdsImage } = require("../../assets/pages/home/3.png");
-const { cloneXImage } = require("../../assets/pages/home/4.png");
+const baycImage = require("../../assets/pages/home/bayc.png");
+const azukiImage = require("../../assets/pages/home/azuki.jpg");
+const moonBirdsImage = require("../../assets/pages/home/moonbirds.jpg");
+const cloneXImage = require("../../assets/pages/home/cloneX.jpg");
+const mfersImage = require("../../assets/pages/home/mfer.jpg");
+const RealisticImage = require("../../assets/pages/home/realistic.jpg");
+const ArtisticImage = require("../../assets/pages/home/Art.jpg");
+const ComicImage = require("../../assets/pages/home/comic.jpg");
+const CyberpunkImage = require("../../assets/pages/home/Cyberpunk.jpg");
+const BAYCImage = require("../../assets/pages/home/BAYC.jpg");
+const AZUKIImage = require("../../assets/pages/home/AZUKI2.jpg");
 
 export default function Creat() {
   const [isHovered, setIsHovered] = useState(false);
@@ -26,41 +33,50 @@ export default function Creat() {
     {
       coverUrl: baycImage,
       name: "BAYC",
+      selected: true,
     },
     {
       coverUrl: azukiImage,
       name: "Azuki",
+      selected: false,
     },
     {
       coverUrl: moonBirdsImage,
       name: "MoonBirds",
+      selected: false,
     },
     {
       coverUrl: cloneXImage,
       name: "Clone X",
+      selected: false,
     },
     {
-      coverUrl: "",
-      name: "",
+      coverUrl: mfersImage,
+      name: "mfers",
+      selected: false,
     },
   ]);
 
   const [artStyle, setArtStyle] = useState([
     {
-      coverUrl: "",
+      coverUrl: RealisticImage,
       name: "Realistic",
+      selected: true,
     },
     {
-      coverUrl: "",
-      name: "Unrealistic",
+      coverUrl: ArtisticImage,
+      name: "Artistic",
+      selected: false,
     },
     {
-      coverUrl: "",
+      coverUrl: ComicImage,
       name: "Comic",
+      selected: false,
     },
     {
-      coverUrl: "",
-      name: "Spectral",
+      coverUrl: CyberpunkImage,
+      name: "Cyberpunk",
+      selected: false,
     },
   ]);
 
@@ -100,13 +116,13 @@ export default function Creat() {
     {
       name: "BAYC",
       id: "",
-      coverUrl: "",
+      coverUrl: BAYCImage,
       percent: "50",
     },
     {
       name: "Azuki",
       id: "",
-      coverUrl: "",
+      coverUrl: AZUKIImage,
       percent: "50",
     },
   ]);
@@ -213,11 +229,25 @@ export default function Creat() {
               return (
                 <div
                   key={index}
-                  className=" w-[112px] hover:text-blue duration-500"
+                  className={`w-[112px] duration-500 ${
+                    pj.selected ? "text-blue" : "hover:text-blue"
+                  }`}
+                  onClick={() => {
+                    // Update the selected status for the clicked item
+                    const updatedNftProject = nftProject.map((itm, idx) => {
+                      itm.selected = idx === index;
+                      return itm;
+                    });
+                    setNftProject(updatedNftProject);
+                  }}
                 >
-                  <div className=" w-[112px] aspect-square flex justify-center items-center rounded-lg border-blue hover:border duration-75">
+                  <div
+                    className={`w-[112px] aspect-square flex justify-center items-center rounded-lg ${
+                      pj.selected ? "border-blue" : "border hover:border-blue"
+                    }`}
+                  >
                     <img
-                      src={baycImage}
+                      src={pj.coverUrl}
                       alt=""
                       className=" w-[102px] aspect-square bg-white rounded-lg "
                       onError={(event) =>
@@ -232,6 +262,7 @@ export default function Creat() {
               );
             })}
           </div>
+
           <div
             className=" flex  flex-col"
             style={
@@ -316,9 +347,25 @@ export default function Creat() {
                 return (
                   <div
                     key={index}
-                    className=" w-[112px] hover:text-blue duration-500"
+                    className={`w-[112px] duration-500 ${
+                      item.selected ? "text-blue" : ""
+                    } hover:text-blue`}
+                    onClick={() => {
+                      // Update the selected status for the clicked item
+                      const updatedArtStyle = artStyle.map((itm, idx) => {
+                        itm.selected = idx === index;
+                        return itm;
+                      });
+                      setArtStyle(updatedArtStyle);
+                    }}
                   >
-                    <div className=" w-[112px] aspect-square flex justify-center items-center rounded-lg border-blue hover:border duration-75">
+                    <div
+                      className={`w-[112px] aspect-square flex justify-center items-center rounded-lg ${
+                        item.selected
+                          ? "border-blue"
+                          : "border hover:border-blue"
+                      }`}
+                    >
                       <img
                         src={item.coverUrl}
                         alt=""
@@ -353,12 +400,25 @@ export default function Creat() {
                       ? { background: "#000000", color: "#ffffff" }
                       : {}
                   }
+                  onClick={() => {
+                    // Update the selected status for the clicked item
+                    const updatedPrompt = prompt.map((itm, idx) => {
+                      if (idx === index) {
+                        itm.selected = true;
+                      } else {
+                        itm.selected = false;
+                      }
+                      return itm;
+                    });
+                    setPrompt(updatedPrompt);
+                  }}
                 >
                   {item.name}
                 </div>
               );
             })}
           </div>
+
           <div className=" mx-4 w-[calc(100%_-_2rem)] flex justify-center mt-16">
             <div className=" py-4 px-24 rounded-full bg-black text-white">
               Create
