@@ -11,6 +11,7 @@ const ComicImage = require("../../assets/pages/home/comic.jpg");
 const CyberpunkImage = require("../../assets/pages/home/Cyberpunk.jpg");
 const BAYCImage = require("../../assets/pages/home/BAYC.jpg");
 const AZUKIImage = require("../../assets/pages/home/AZUKI2.jpg");
+const bannerImage = require("../../assets/pages/home/banner.svg");
 
 export default function Creat() {
   const [isHovered, setIsHovered] = useState(false);
@@ -158,6 +159,45 @@ export default function Creat() {
         })}
       </div>
     );
+  };
+
+  const fetchCreateDetail = async (idcreatenft: any) => {
+    try {
+      const response = await fetch(
+        `YOUR_BACKEND_URL/getCreateDetail?idcreatenft=${idcreatenft}`
+      );
+      const result = await response.json();
+
+      if (result.code === "0") {
+        console.log(result.data); // 这里您可以设置状态或做其他操作
+      } else {
+        console.error(result.message);
+      }
+    } catch (error) {
+      console.error("Error fetching create detail:", error);
+    }
+  };
+
+  const submitCreateDetail = async (data: any) => {
+    try {
+      const response = await fetch("YOUR_BACKEND_URL/postCreateDetail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (result.code === "0") {
+        console.log(result.data); // 这里您可以设置状态或做其他操作
+      } else {
+        console.error(result.message);
+      }
+    } catch (error) {
+      console.error("Error submitting create detail:", error);
+    }
   };
 
   return (
@@ -421,9 +461,11 @@ export default function Creat() {
 
           <div className=" mx-4 w-[calc(100%_-_2rem)] flex justify-center mt-16">
             <div className=" py-4 px-24 rounded-full bg-black text-white">
+              {/* onClick={() => submitCreateDetail(yourDataObject)}>  添加这个 onClick 事件处理器 */}
               Create
             </div>
           </div>
+          <img src={bannerImage} alt="Banner" className="w-full mt-4" />
         </div>
       </div>
     </div>
